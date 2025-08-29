@@ -1,4 +1,4 @@
-package com.brus.kmptranslatorapp.translate.components
+package com.brus.kmptranslatorapp.translate.presentation.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.shape.CircleShape

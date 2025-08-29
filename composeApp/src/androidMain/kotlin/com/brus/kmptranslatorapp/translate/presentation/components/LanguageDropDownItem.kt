@@ -1,4 +1,4 @@
-package com.brus.kmptranslatorapp.translate.components
+package com.brus.kmptranslatorapp.translate.presentation.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.size

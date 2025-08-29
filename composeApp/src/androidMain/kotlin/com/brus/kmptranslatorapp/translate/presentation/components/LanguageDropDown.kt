@@ -1,4 +1,4 @@
-package com.brus.kmptranslatorapp.translate.components
+package com.brus.kmptranslatorapp.translate.presentation.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
@@ -24,7 +24,6 @@ import androidx.compose.ui.unit.dp
 import com.brus.kmptranslatorapp.R
 import com.brus.kmptranslatorapp.core.presentation.UILanguage
 import com.brus.kmptranslatorapp.core.theme.LightBlue
-import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun LanguageDropDown(
