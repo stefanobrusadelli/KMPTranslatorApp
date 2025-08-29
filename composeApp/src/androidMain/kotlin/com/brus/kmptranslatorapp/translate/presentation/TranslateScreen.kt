@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalClipboardManager
@@ -17,6 +18,7 @@ import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.unit.dp
 import com.brus.kmptranslatorapp.R
+import com.brus.kmptranslatorapp.translate.domain.translate.TranslateError
 import com.brus.kmptranslatorapp.translate.presentation.components.LanguageDropDown
 import com.brus.kmptranslatorapp.translate.presentation.components.SwapLanguagesButton
 import com.brus.kmptranslatorapp.translate.presentation.components.TranslateTextField
@@ -27,6 +29,21 @@ fun TranslateScreen(
     onEvent: (TranslateEvent) -> Unit
 ) {
     val context = LocalContext.current
+
+    LaunchedEffect(key1 = state.error) {
+        val message = when(state.error) {
+            TranslateError.SERVICE_UNAVAILABLE -> context.getString(R.string.error_service_unavailable)
+            TranslateError.CLIENT_ERROR -> context.getString(R.string.client_error)
+            TranslateError.SERVER_ERROR -> context.getString(R.string.server_error)
+            TranslateError.UNKNOWN_ERROR -> context.getString(R.string.unknown_error)
+            else -> null
+        }
+        message?.let {
+            Toast.makeText(context, it, Toast.LENGTH_LONG).show()
+            onEvent(TranslateEvent.OnErrorSeen)
+        }
+    }
+
     Scaffold(
         floatingActionButton = {
 
