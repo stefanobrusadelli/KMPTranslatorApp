@@ -10,6 +10,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material3.FabPosition
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -59,8 +61,22 @@ fun TranslateScreen(
 
     Scaffold(
         floatingActionButton = {
-
-        }
+            FloatingActionButton(
+                onClick = {
+                    onEvent(TranslateEvent.RecordAudio)
+                },
+                shape = CircleShape,
+                containerColor = MaterialTheme.colorScheme.primary,
+                contentColor = MaterialTheme.colorScheme.onPrimary,
+                modifier = Modifier.size(75.dp)
+            ) {
+                Icon(
+                    imageVector = ImageVector.vectorResource(id = R.drawable.mic),
+                    contentDescription = stringResource(id = R.string.record_audio)
+                )
+            }
+        },
+        floatingActionButtonPosition = FabPosition.Center
     ) { paddingValues ->
         LazyColumn(
             modifier = Modifier

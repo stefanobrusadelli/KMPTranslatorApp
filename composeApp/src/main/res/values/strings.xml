@@ -13,4 +13,5 @@
     <string name="client_error">Client error</string>
     <string name="server_error">Server error</string>
     <string name="unknown_error">Unknown error</string>
+    <string name="record_audio">record audio</string>
 </resources>
