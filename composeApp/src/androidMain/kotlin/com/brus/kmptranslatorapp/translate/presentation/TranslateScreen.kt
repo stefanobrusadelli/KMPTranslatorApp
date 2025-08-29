@@ -33,6 +33,8 @@ import com.brus.kmptranslatorapp.translate.presentation.components.LanguageDropD
 import com.brus.kmptranslatorapp.translate.presentation.components.SwapLanguagesButton
 import com.brus.kmptranslatorapp.translate.presentation.components.TranslateHistoryItem
 import com.brus.kmptranslatorapp.translate.presentation.components.TranslateTextField
+import com.brus.kmptranslatorapp.translate.presentation.components.rememberTextToSpeech
+import java.util.Locale
 
 @Composable
 fun TranslateScreen(
@@ -111,6 +113,7 @@ fun TranslateScreen(
             item {
                 val clipboardManager = LocalClipboardManager.current
                 val keyboardController = LocalSoftwareKeyboardController.current
+                val tts = rememberTextToSpeech()
                 TranslateTextField(
                     fromText = state.fromText,
                     toText = state.toText,
@@ -140,7 +143,13 @@ fun TranslateScreen(
                         onEvent(TranslateEvent.CloseTranslation)
                     },
                     onSpeakerClick = {
-
+                        tts.language = state.toLanguage.toLocale() ?: Locale.ENGLISH
+                        tts.speak(
+                            state.toText,
+                            TextToSpeech.QUEUE_FLUSH,
+                            null,
+                            null
+                        )
                     },
                     onTextFieldClick = {
                         onEvent(TranslateEvent.EditTranslation)
