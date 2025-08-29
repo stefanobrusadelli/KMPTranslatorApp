@@ -74,6 +74,6 @@ android {
 
 dependencies {
     debugImplementation(compose.uiTooling)
-    ksp(libs.hilt.android.compiler)
+    add("kspAndroid", libs.hilt.android.compiler)
 }
 

@@ -17,7 +17,7 @@ sqlDelight = "2.1.0"
 composeBom = "2025.08.01"
 hilt = "2.57.1"
 hiltNavigationCompose = "1.2.0"
-ksp = "2.1.20-2.0.0"
+ksp = "2.2.0-2.0.2"
 
 [libraries]
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }

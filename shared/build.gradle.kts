@@ -26,6 +26,15 @@ kotlin {
             isStatic = true
         }
     }
+
+    targets.withType<org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget>().all {
+        binaries.withType<org.jetbrains.kotlin.gradle.plugin.mpp.Framework>().all {
+            // Link system SQLite
+            linkerOpts("-lsqlite3")
+            // Optional but recommended to simplify linking on iOS:
+            isStatic = true
+        }
+    }
     
     sourceSets {
         commonMain.dependencies {
