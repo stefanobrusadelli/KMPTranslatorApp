@@ -1,49 +1,46 @@
 package com.brus.kmptranslatorapp
 
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.safeContentPadding
-import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
-import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
+import androidx.compose.material3.Surface
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import org.jetbrains.compose.resources.painterResource
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import com.brus.kmptranslatorapp.core.presentation.Routes
+import com.brus.kmptranslatorapp.core.theme.TranslatorTheme
+import com.brus.kmptranslatorapp.translate.presentation.AndroidTranslateViewModel
+import com.brus.kmptranslatorapp.translate.presentation.TranslateScreen
 import org.jetbrains.compose.ui.tooling.preview.Preview
-
-import kmptranslatorapp.composeapp.generated.resources.Res
-import kmptranslatorapp.composeapp.generated.resources.compose_multiplatform
 
 @Composable
 @Preview
 fun App() {
-    MaterialTheme {
-        var showContent by remember { mutableStateOf(false) }
-        Column(
-            modifier = Modifier
-                .background(MaterialTheme.colorScheme.primaryContainer)
-                .safeContentPadding()
-                .fillMaxSize(),
-            horizontalAlignment = Alignment.CenterHorizontally,
+    TranslatorTheme {
+        Surface(
+            modifier = Modifier.fillMaxSize(),
+            color = MaterialTheme.colorScheme.background
         ) {
-            Button(onClick = { showContent = !showContent }) {
-                Text("Click me!")
-            }
-            AnimatedVisibility(showContent) {
-                val greeting = remember { Greeting().greet() }
-                Column(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                ) {
-                    Image(painterResource(Res.drawable.compose_multiplatform), null)
-                    Text("Compose: $greeting")
-                }
-            }
+            TranslateRoot()
+        }
+    }
+}
+
+@Composable
+fun TranslateRoot() {
+    val navController = rememberNavController()
+    NavHost(navController, startDestination = Routes.TRANSLATE) {
+        composable(Routes.TRANSLATE) {
+            val viewModel = hiltViewModel<AndroidTranslateViewModel>()
+            val state by viewModel.state.collectAsStateWithLifecycle()
+            TranslateScreen(
+                state = state,
+                onEvent = viewModel::onEvent
+            )
         }
     }
 }

@@ -25,6 +25,8 @@ kotlin {
             implementation(libs.androidx.activity.compose)
             implementation(libs.hilt.android)
             implementation(libs.hilt.navigation.compose)
+            implementation(libs.androidx.compose.material.icons.extended)
+            implementation(libs.ktor.android)
         }
         commonMain.dependencies {
             implementation(compose.runtime)
